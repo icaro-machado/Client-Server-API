@@ -27,10 +27,10 @@ Este projeto consiste em dois programas em Go: um servidor (`server.go`) que bus
 1. Crie um banco de dados MySQL.
 2. Atualize a string de conexão no `server.go` com suas credenciais:
    ```go
-   dsn := "user:user@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+   dsn := "user:password@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
    ```
    - **user**: Nome de usuário do MySQL.
-   - **user**: Senha do usuário.
+   - **password**: Senha do usuário.
    - **127.0.0.1**: Endereço do servidor MySQL (pode ser localhost se estiver rodando na mesma máquina).
    - **3306**: Porta do MySQL (a porta padrão é `3306`).
    - **dbname**: Nome do banco de dados.
