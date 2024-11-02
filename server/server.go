@@ -32,7 +32,7 @@ func handlePrice(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(context.Background(), 200*time.Millisecond)
 	defer cancel()
 
-	cotacao, err := findPrice(ctx)
+	price, err := findPrice(ctx)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		log.Println("Erro ao buscar cotação:", err)
@@ -42,12 +42,12 @@ func handlePrice(w http.ResponseWriter, r *http.Request) {
 	dbCtx, dbCancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
 	defer dbCancel()
 
-	if err := savePriceDb(dbCtx, cotacao.Bid); err != nil {
+	if err := savePriceDb(dbCtx, price.Bid); err != nil {
 		log.Println("Erro ao salvar cotação no banco:", err)
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{"bid": cotacao.Bid})
+	json.NewEncoder(w).Encode(map[string]string{"bid": price.Bid})
 }
 
 func findPrice(ctx context.Context) (*Price, error) {
